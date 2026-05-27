@@ -29,7 +29,8 @@
 * According to Pyrooz et al. (2016:7, Appendix A) there were 105 American cities with at least 200,000 population in the year 2010.
 * Among these 105 cities, there were 82 American cities with at least 250,000 population in either 2013, 2014, or 2015.
 * Number of murders is based on the FBI's Uniform Crime Reporting Program for the years 2013 and 2015.
-* Population size is reported for each city's jurisdiction for the years 2013-2015.
+* Population size is also based on each city's jurisdiction as reported in the UCR records for the years 2013, 2014, and 2015.
+* The first version of the variables (h13-h15 and p13-p15) were obtained from the [published UCR reports](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/publications); the second version of the variables (h13a-h15a and p13a-p15a) were obtained from Jacob Kaplan's [website](https://crimedatatool.com).
 * Data set:
 
 ```Rout
@@ -141,8 +142,43 @@
 105    winstonsalem  15  235811  13  238082  NA      NA   15  235811   13  238082   10  241631
 ```
 
-* The murder rate is expressed as the number of murders divided by the population size (on a per 100,000 population scale)
-* A problem is that for 4 of the 82 cities, it is not possible to tell whether the murder rate increased or decreased:
+* Next, we subset the data to include the cities with at least 250,000 population in any of the years 2013, 2014, or 2015:
+
+```R
+df <- read.csv(file="rr.csv",sep=",",header=T)
+head(df)
+d <- subset(df,p13a>250000 | p14a>250000 | p15a>250000)
+nrow(d)
+```
+
+* which gives us the following output:
+
+```Rout
+> set.seed(341)
+> 
+> df <- read.csv(file="rr.csv",sep=",",header=T)
+> head(df)
+         city h13    p13 h14    p14 h15    p15 h13a   p13a h14a   p14a h15a   p15a
+1 albuquerque  37 558165  30 558874  43 559721   37 558165   30 558874   43 559721
+2     anaheim  11 345320  14 346956  18 349471   11 345320   14 346956   18 349471
+3   anchorage  14 299455  12 301306  26 301239   14 299455   12 301306   26 301239
+4   arlington  18 378765  13 382976   8 387565   18 378765   13 382976    8 387565
+5     atlanta  84 451020  93 454363  94 464710   83 451020   93 454363   94 464710
+6      aurora  23 343484  11 350948  24 360237   20 343484    9 350948   25 360237
+> 
+> d <- subset(df,p13a>250000 | p14a>250000 | p15a>250000)
+> nrow(d)
+[1] 82
+>
+```
+
+* 
+
+
+* The murder rate is expressed as the number of murders divided by the population size (on a per 100,000 population scale).
+* A problem is that for 4 of the 82 cities, it is not possible to tell whether the murder rate increased or decreased.
+
+
 * Analysis objective: develop a valid estimate of *p*.
 * 48 cities experienced an increase
 * 30 cities experienced a decrease
