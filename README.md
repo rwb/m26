@@ -30,7 +30,7 @@
 * Among these 105 cities, there were 82 American cities with at least 250,000 population in either 2013, 2014, or 2015.
 * Number of murders is based on the FBI's Uniform Crime Reporting Program for the years 2013 and 2015.
 * Population size is also based on each city's jurisdiction as reported in the UCR records for the years 2013, 2014, and 2015.
-* The first version of the variables (h13-h15 and p13-p15) were obtained from the [published UCR reports](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/publications); the second version of the variables (h13a-h15a and p13a-p15a) were obtained from Jacob Kaplan's [website](https://crimedatatool.com).
+* The first version of the variables (h13-h15 and p13-p15) were obtained from the [published UCR reports](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/publications); the second version of the variables (h13a-h15a and p13a-p15a) were obtained from Jacob Kaplan's [website](https://crimedatatool.com), which, itself, is based on data from the [Crime Data Explorer](https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/home).
 * Data set:
 
 ```Rout
@@ -172,42 +172,83 @@ nrow(d)
 >
 ```
 
-* 
+* Next, we calculate the murder rates for each of the 82 cities for the years 2013 (the year before the events in Ferguson) and 2015 (the year after the events in Ferguson) based on the UCR published reports. For this analysis, we will rely on the murder rate based on the 2013 population size for each year:
+  
+```R
+d$r13 <- (d$h13/d$p13)*100000
+d$r15 <- (d$h15/d$p13)*100000
+d$delta <- d$r15-d$r13
+table(d$delta,exclude=NULL)
+```
 
+* Here is our output:
 
-* The murder rate is expressed as the number of murders divided by the population size (on a per 100,000 population scale).
-* A problem is that for 4 of the 82 cities, it is not possible to tell whether the murder rate increased or decreased.
+```Rout
+> d$r13 <- (d$h13/d$p13)*100000
+> d$r15 <- (d$h15/d$p13)*100000
+> d$delta <- d$r15-d$r13
+> table(d$delta,exclude=NULL)
 
+ -3.04480043236166  -3.00047578973237  -2.64015946563172  -2.35460324935248  -2.31849112597521 
+                 1                  1                  1                  1                  1 
+ -1.49496384056211  -1.49121858654846  -1.41325277792499  -1.34911346381509  -1.31534237265842 
+                 1                  1                  1                  1                  1 
+ -1.26743354845905  -1.23797002626972 -0.971779522661898 -0.806335377057541  -0.55776225782162 
+                 1                  1                  1                  1                  1 
+-0.552701466593342 -0.404720661799226 -0.402061772770768 -0.399430412232157  -0.35798283830273 
+                 1                  1                  1                  1                  1 
+-0.349170138969715  -0.31794177214385 -0.300437436908138 -0.229300998835151 -0.196511527366195 
+                 1                  1                  1                  1                  1 
+-0.155327982802087   -0.1482243464418                  0  0.202474331614365  0.238766627110995 
+                 1                  1                  2                  1                  1 
+ 0.291134375982578  0.362588154245001  0.425835435895797  0.443766960218511  0.472955796368883 
+                 1                  1                  1                  1                  1 
+  0.59961888223845  0.622263983049529  0.678679290101463  0.799231706295239  0.887159631702016 
+                 1                  1                  1                  1                  1 
+ 0.956036654445334   1.02986611740474   1.07495095536266   1.41151229427208   1.56817852144288 
+                 1                  1                  1                  1                  1 
+  1.57173730554216   1.67251794535732   1.70787386782195   1.81807964511085    1.8821285619283 
+                 1                  1                  1                  1                  1 
+  1.99939351729975   2.00314030765153   2.02140261084361   2.02710529364068   2.12189209117771 
+                 1                  1                  1                  1                  1 
+  2.12471018631133   2.14816310572829   2.21719657664849   2.23471572063701   2.35246203530604 
+                 1                  1                  1                  1                  1 
+  2.72494413864516   2.77633352347011    3.1048990131596   3.90076454985177   4.00727989180344 
+                 1                  1                  1                  1                  1 
+  4.08143424350846   4.91715341518655   5.67052262204966    5.8206027312785    5.9232816559916 
+                 1                  1                  1                  1                  1 
+  6.82417756177129    9.1267833966794   17.8264284028002   21.3458562356583               <NA> 
+                 1                  1                  1                  1                  7 
+>
+```
 
-* Analysis objective: develop a valid estimate of *p*.
-* 48 cities experienced an increase
-* 30 cities experienced a decrease
-* 4 cities had missing information
-* estimate *p* = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
-* In addition to *p*, we will calculate a 95% confidence interval for *p*.
-* Will use the Jeffreys procedure to calculate the confidence interval (i.e., draw simulated *p*'s from a beta distribution with shape parameters 1/2+number of increases and 1/2+number of decreases).
+* These results tell us that 46 of the 82 cities experienced an increase in the murder rate while 29 cities experienced a decrease (N = 27) or no change (N = 2) from 2013 to 2015; for 7 cities, we are not able to tell whether there was an increase or a decrease because some of the data to perform the calculation were missing.
+* Analysis objective: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
+* estimate θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
+* In addition to θ, we will calculate a 95% confidence interval for θ.
+* Will use the Jeffreys procedure to calculate the confidence interval (i.e., draw simulated θ's from a beta distribution with shape parameters 1/2+number of increases and 1/2+number of cases minus the number of increases).
 
 ---
 #### Missing-At-Random Results
 
-* Recall that *p* = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
-* p(observed) = 78/82
-* p(increase|observed) = 48/78
-* p(missing) = 4/82
-* p(increase|missing) = ?/4
+* Recall that θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
+* p(observed) = 75/82
+* p(increase|observed) = 46/75
+* p(missing) = 7/82
+* p(increase|missing) = ?/7
 * missing-at-random (mar) estimate = p(observed)*p(increase|observed)+p(missing)*p(increase|observed)
-* mar.est = 78/82 x 48/78 + 4/82 x 48/78 = 0.615
-* 95% confidence interval around mar.est = [0.505,0.718]
-* reject Ho that p = 0.5
+* in this case, the mar estimate of θ is 46/75 = 0.613
+* 95% confidence interval around mar.est = [0.501,0.718]
+* reject Ho that θ = 0.5 (but just barely; this is a borderline case!)
 
 ---
 #### Bounds Analysis
 
-* minimum value of *p* consistent with the data: 78/82 x 48/78 + 4/82 x 0/4 = 0.585
-* maximum value of *p* consistent with the data: 78/82 x 48/78 + 4/82 x 4/4 = 0.634
-* notice that 0.634-0.585 = 0.049 which is the same as 4/82 (fraction of cases that are missing)
-* 95% confidence interval for the lower and upper bounds: LB: [0.462,0.701] and UB: [0.511,0.745]
-* with 4 cities missing, out of 82 cities, the dominant sign of change (p < 0.5 or p > 0.5) is not identified.
+* minimum value of θ consistent with the data: 75/82 x 46/75 + 7/82 x 0/7 = 0.561
+* maximum value of θ consistent with the data: 75/82 x 46/75 + 7/82 x 7/7 = 0.646
+* notice that 0.646-0.561 = 0.085 which is the same as 7/82 (fraction of cases that are missing)
+* 95% confidence interval for the lower and upper bounds: LB: [0.438,0.679] and UB: [0.524,0.756]
+* the dominant sign of change is identified (more than 1/2 of the cities experienced an increase even if none of the missing cities experiencecd an increase but the Bonferroni-corrected 95% confidence interval for the lower bound estimate of θ now includes 1/2.
 
 ---
 #### Conclusions
@@ -222,7 +263,7 @@ nrow(d)
 * Advantage of MAR: we can get a point estimate with a confidence interval.
 * Disadvantage of MAR: we can't test the assumption.
 * Consequence of relying on it: we understate the uncertainty of our analysis.
-* A standard MAR analysis would lead us to reject the hypothesis that *p* = 0.5 (a city drawn at random is equally likely to have experienced an increase or a decrease in its murder rate from 2013 to 2015).
-* A partial identification analysis leads us to the conclusion that our sample *p* must be somewhere between 0.585 and 0.634.
-* The confidence interval around the lower bound estimate of 0.585 is [0.462,0.701]; since this confidence interval includes 0.5, we now fail to reject the hypothesis that *p* = 0.5.
-* The data are simply not strong enough to tell us whether *p* is actually greater than 0.5.
+* A standard MAR analysis would lead us to reject the hypothesis that θ = 0.5 (a city drawn at random is equally likely to have experienced an increase or a decrease in its murder rate from 2013 to 2015).
+* A partial identification analysis leads us to the conclusion that our sample *p* must be somewhere between 0.561 and 0.646.
+* The confidence interval around the lower bound estimate of θ = 0.561 is [0.438,0.679]; since this confidence interval includes 0.5, we now fail to reject the hypothesis that θ = 0.5.
+* The data are simply not strong enough to tell us whether θ is actually greater than 0.5.
