@@ -26,7 +26,8 @@
 ---
 #### Dataset/Methods
 
-* Sample: N = 82 American cities with at least 250,000 population in either 2013, 2014, or 2015.
+* According to Pyrooz et al. (2016:7, Appendix A) there were 105 American cities with at least 200,000 population in the year 2010.
+* Among these 105 cities, there were 82 American cities with at least 250,000 population in either 2013, 2014, or 2015.
 * Number of murders is based on the FBI's Uniform Crime Reporting Program for the years 2013 and 2015.
 * Population size is reported for each city's jurisdiction for the years 2013-2015.
 * Data set:
@@ -138,7 +139,6 @@
 103    washingtondc 103  646449 105  658893 162  672228  103  646449  105  658893  162  672228
 104         wichita  15  386486  NA      NA  27  389824   15  386486   21  387493   27  389824
 105    winstonsalem  15  235811  13  238082  NA      NA   15  235811   13  238082   10  241631
->
 ```
 
 * The murder rate is expressed as the number of murders divided by the population size (on a per 100,000 population scale)
