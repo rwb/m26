@@ -222,25 +222,27 @@ table(d$delta,exclude=NULL)
 >
 ```
 
-#### Plan of Analysis #1
+#### Missing-at-Random Analysis of p(increase)
 
 * These results tell us that 46 of the 82 cities experienced an increase in the murder rate while 29 cities experienced a decrease (N = 27) or no change (N = 2) from 2013 to 2015; for 7 cities, we are not able to tell whether there was an increase or a decrease because some of the data to perform the calculation were missing.
 * Analysis objective #1: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
 * estimate θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
+* if p(missing) > 0, we can obtain the missing-at-random estimate of θ by assuming that θ|missing = θ|observed.
 * In addition to θ, we will calculate a 95% confidence interval for θ.
 * Will use the Jeffreys procedure to calculate the confidence interval (i.e., draw simulated θ's from a beta distribution with shape parameters 1/2+number of increases and 1/2+number of cases minus the number of increases).
 
-#### Plan of Analysis #2
+#### Missing-at-Random Analysis of Change Scores
 
 * The first analysis provides a sense of the direction of change but doesn't tell us anything about the typical magnitude of change.
 * Let each city be characterized by its change score, Δ = 2015 murder rate minus the 2013 murder rate.
 * Then, we consider measures of central tendency or typicality in the observed change scores (i.e., the mean and median of the change scores).
 * What can the data tell us about these quantities?
-* 
+* mean(Δ) = p(observed)*mean(Δ|observed)+p(missing)*mean(Δ|missing)
+* if p(missing) > 0, we can obtain the missing-at-random estimate of mean(Δ) by assuming that mean(Δ|missing) = mean(Δ|observed)
+* for the missing-at-random estimate of the median(Δ), we also assume that median(Δ|missing) = median(Δ|observed)
+* we can use the bootstrap to calculate the confidence interval for each estimate
 
-
----
-#### Missing-At-Random Results
+#### Missing-At-Random Results: p(increase)
 
 * Recall that θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
 * p(observed) = 75/82
@@ -251,6 +253,11 @@ table(d$delta,exclude=NULL)
 * in this case, the mar estimate of θ is 46/75 = 0.613
 * 95% confidence interval around mar.est = [0.501,0.718]
 * reject Ho that θ = 0.5 (but just barely; this is a borderline case!)
+
+#### Missing-At-Random Results: mean(Δ) and median(Δ)
+
+* missing-at-random estimate of mean(Δ) = +1.479
+* missing-at-random estimate of median(Δ) = +0.622
 
 ---
 #### Bounds Analysis
