@@ -271,7 +271,7 @@ table(d$delta,exclude=NULL)
 ---
 #### Conclusions
 
-* Murder is among the best measured crimes in the United States.
+* Murder is among the best measured crimes in the United States (and Teddy's point that our tools for studying patterns and trends are more powerful than ever).
 * Yet, our measures of murder are not without problems.
 * One issue is that our principal law enforcement-based measure of murder (the UCR) is based on voluntary participation by agencies.
 * Each year, some agencies across the United States are not represented in the nation's crime statistics.
