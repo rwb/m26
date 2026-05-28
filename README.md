@@ -4,7 +4,7 @@
 
 * Historical events: police killings of Michael Brown in August 2014 (Ferguson, MO) and Freddie Gray in April 2015 (Baltimore, MD)
 * FBI Director James Comey and the "Ferguson effect": "Far more people are being killed in America’s cities this year than in many years."
-* Emphasis of this study: changes in murder rates, comparing 2013 to 2015
+* Emphasis of this study: changes in murder rates at the city level, comparing 2013 to 2015
   
 ---
 #### Prior Literature
@@ -222,11 +222,22 @@ table(d$delta,exclude=NULL)
 >
 ```
 
+#### Plan of Analysis #1
+
 * These results tell us that 46 of the 82 cities experienced an increase in the murder rate while 29 cities experienced a decrease (N = 27) or no change (N = 2) from 2013 to 2015; for 7 cities, we are not able to tell whether there was an increase or a decrease because some of the data to perform the calculation were missing.
-* Analysis objective: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
+* Analysis objective #1: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
 * estimate θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
 * In addition to θ, we will calculate a 95% confidence interval for θ.
 * Will use the Jeffreys procedure to calculate the confidence interval (i.e., draw simulated θ's from a beta distribution with shape parameters 1/2+number of increases and 1/2+number of cases minus the number of increases).
+
+#### Plan of Analysis #2
+
+* The first analysis provides a sense of the direction of change but doesn't tell us anything about the typical magnitude of change.
+* Let each city be characterized by its change score, Δ = 2015 murder rate minus the 2013 murder rate.
+* Then, we consider measures of central tendency or typicality in the observed change scores (i.e., the mean and median of the change scores).
+* What can the data tell us about these quantities?
+* 
+
 
 ---
 #### Missing-At-Random Results
@@ -266,4 +277,4 @@ table(d$delta,exclude=NULL)
 * A standard MAR analysis would lead us to reject the hypothesis that θ = 0.5 (a city drawn at random is equally likely to have experienced an increase or a decrease in its murder rate from 2013 to 2015).
 * A partial identification analysis leads us to the conclusion that our sample *p* must be somewhere between 0.561 and 0.646.
 * The confidence interval around the lower bound estimate of θ = 0.561 is [0.438,0.679]; since this confidence interval includes 0.5, we now fail to reject the hypothesis that θ = 0.5.
-* The data are simply not strong enough to tell us whether θ is actually greater than 0.5.
+* The data are simply not strong enough for us to infer whether θ is greater than 0.5.
