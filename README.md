@@ -303,12 +303,12 @@ attr(,"conf.level")
 ```
 
 ---
-#### Bounds Analysis
+#### Bounds Analysis for θ
 
 * minimum value of θ consistent with the data: 75/82 x 46/75 + 7/82 x 0/7 = 0.561
 * maximum value of θ consistent with the data: 75/82 x 46/75 + 7/82 x 7/7 = 0.646
 * notice that 0.646-0.561 = 0.085 which is the same as 7/82 (fraction of cases that are missing)
-* 95% confidence interval for the lower and upper bounds: LB: [0.438,0.679] and UB: [0.524,0.756]
+* Bonferroni-corrected 95% confidence interval for the lower and upper bounds: LB: [0.438,0.679] and UB: [0.524,0.756]
 * the dominant sign of change is identified (more than 1/2 of the cities experienced an increase even if none of the missing cities experiencecd an increase but the Bonferroni-corrected 95% confidence interval for the lower bound estimate of θ now includes 1/2.
 
 ---
