@@ -240,7 +240,7 @@ table(d$delta,exclude=NULL)
 * mean(Δ) = p(observed)*mean(Δ|observed)+p(missing)*mean(Δ|missing)
 * if p(missing) > 0, we can obtain the missing-at-random estimate of mean(Δ) by assuming that mean(Δ|missing) = mean(Δ|observed)
 * for the missing-at-random estimate of the median(Δ), we also assume that median(Δ|missing) = median(Δ|observed)
-* we can use the bootstrap to calculate the confidence interval for each estimate
+* we can use standard tools to calculate the confidence interval for each estimate
 
 #### Missing-At-Random Results: p(increase)
 
@@ -256,8 +256,51 @@ table(d$delta,exclude=NULL)
 
 #### Missing-At-Random Results: mean(Δ) and median(Δ)
 
-* missing-at-random estimate of mean(Δ) = +1.479
-* missing-at-random estimate of median(Δ) = +0.622
+* missing-at-random estimate of mean(Δ) = +1.479 (95% CI: [0.608,2.351])
+* missing-at-random estimate of median(Δ) = +0.622 (95% exact CI: [0.000,1.572]) (borderline case!)
+
+```R
+set.seed(387)
+mean(d$delta,na.rm=T)
+t.test(d$delta,conf.level=0.95,na.rm=T)
+median(d$delta,na.rm=T)
+library(DescTools)
+MedianCI(d$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
+MedianCI(d$delta,conf.level=0.95,method="exact",na.rm=T)
+```
+
+which gives the following output:
+
+```Rout
+> set.seed(387)
+> mean(d$delta,na.rm=T)
+[1] 1.479206
+> t.test(d$delta,conf.level=0.95,na.rm=T)
+
+	One Sample t-test
+
+data:  d$delta
+t = 3.3828, df = 74, p-value = 0.00115
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 0.6079128 2.3505002
+sample estimates:
+mean of x 
+ 1.479206 
+
+> median(d$delta,na.rm=T)
+[1] 0.622264
+> library(DescTools)
+> MedianCI(d$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
+  median   lwr.ci   upr.ci 
+0.622264 0.000000 1.411512 
+> MedianCI(d$delta,conf.level=0.95,method="exact",na.rm=T)
+  median   lwr.ci   upr.ci 
+0.622264 0.000000 1.571737 
+attr(,"conf.level")
+[1] 0.9630451
+>
+```
 
 ---
 #### Bounds Analysis
