@@ -27,7 +27,7 @@
 #### Dataset/Methods
 
 * According to Pyrooz et al. (2016:7, Appendix A) there were 105 American cities with at least 200,000 population in the year 2010.
-* Among these 105 cities, there were 82 American cities with at least 250,000 population in either 2013, 2014, or 2015.
+* We can use these same 105 cities.
 * Number of murders is based on the FBI's Uniform Crime Reporting Program for the years 2013 and 2015.
 * Population size is also based on each city's jurisdiction as reported in the UCR records for the years 2013, 2014, and 2015.
 * The first version of the variables (h13-h15 and p13-p15) were obtained from the [published UCR reports](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/publications); the second version of the variables (h13a-h15a and p13a-p15a) were obtained from Jacob Kaplan's [website](https://crimedatatool.com), which, itself, is based on data from the [Crime Data Explorer](https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/home).
@@ -142,94 +142,96 @@
 105    winstonsalem  15  235811  13  238082  NA      NA   15  235811   13  238082   10  241631
 ```
 
-* Next, we subset the data to include the cities with at least 250,000 population in any of the years 2013, 2014, or 2015:
-
-```R
-df <- read.csv(file="rr.csv",sep=",",header=T)
-head(df)
-d <- subset(df,p13a>250000 | p14a>250000 | p15a>250000)
-nrow(d)
-```
-
-* which gives us the following output:
-
-```Rout
-> set.seed(341)
-> 
-> df <- read.csv(file="rr.csv",sep=",",header=T)
-> head(df)
-         city h13    p13 h14    p14 h15    p15 h13a   p13a h14a   p14a h15a   p15a
-1 albuquerque  37 558165  30 558874  43 559721   37 558165   30 558874   43 559721
-2     anaheim  11 345320  14 346956  18 349471   11 345320   14 346956   18 349471
-3   anchorage  14 299455  12 301306  26 301239   14 299455   12 301306   26 301239
-4   arlington  18 378765  13 382976   8 387565   18 378765   13 382976    8 387565
-5     atlanta  84 451020  93 454363  94 464710   83 451020   93 454363   94 464710
-6      aurora  23 343484  11 350948  24 360237   20 343484    9 350948   25 360237
-> 
-> d <- subset(df,p13a>250000 | p14a>250000 | p15a>250000)
-> nrow(d)
-[1] 82
->
-```
-
 * Next, we calculate the murder rates for each of the 82 cities for the years 2013 (the year before the events in Ferguson) and 2015 (the year after the events in Ferguson) based on the UCR published reports. For this analysis, we will rely on the murder rate based on the 2013 population size for each year:
   
 ```R
-d$r13 <- (d$h13/d$p13)*100000
-d$r15 <- (d$h15/d$p13)*100000
-d$delta <- d$r15-d$r13
-table(d$delta,exclude=NULL)
+df$r13 <- (df$h13/df$p13)*100000
+df$r15 <- (df$h15/df$p13)*100000
+df$delta <- df$r15-df$r13
+table(df$delta,exclude=NULL)
 ```
 
 * Here is our output:
 
 ```Rout
-> d$r13 <- (d$h13/d$p13)*100000
-> d$r15 <- (d$h15/d$p13)*100000
-> d$delta <- d$r15-d$r13
-> table(d$delta,exclude=NULL)
+> df$r13 <- (df$h13/df$p13)*100000
+> df$r15 <- (df$h15/df$p13)*100000
+> df$delta <- df$r15-df$r13
+> table(df$delta,exclude=NULL)
 
- -3.04480043236166  -3.00047578973237  -2.64015946563172  -2.35460324935248  -2.31849112597521 
+   -4.274275510301  -3.04480043236166  -3.00047578973237  -2.64015946563172  -2.56210981202654 
                  1                  1                  1                  1                  1 
- -1.49496384056211  -1.49121858654846  -1.41325277792499  -1.34911346381509  -1.31534237265842 
+ -2.35460324935248  -2.31849112597521  -1.49496384056211  -1.49121858654846  -1.41325277792499 
                  1                  1                  1                  1                  1 
- -1.26743354845905  -1.23797002626972 -0.971779522661898 -0.806335377057541  -0.55776225782162 
+ -1.34911346381509  -1.31534237265842  -1.26743354845905  -1.23797002626972 -0.971779522661898 
                  1                  1                  1                  1                  1 
--0.552701466593342 -0.404720661799226 -0.402061772770768 -0.399430412232157  -0.35798283830273 
+-0.933140484299911 -0.806335377057541  -0.55776225782162 -0.552701466593342 -0.466587657823275 
                  1                  1                  1                  1                  1 
--0.349170138969715  -0.31794177214385 -0.300437436908138 -0.229300998835151 -0.196511527366195 
+-0.404720661799226 -0.402061772770768 -0.399430412232157  -0.35798283830273 -0.349170138969715 
                  1                  1                  1                  1                  1 
--0.155327982802087   -0.1482243464418                  0  0.202474331614365  0.238766627110995 
-                 1                  1                  2                  1                  1 
- 0.291134375982578  0.362588154245001  0.425835435895797  0.443766960218511  0.472955796368883 
+ -0.31794177214385 -0.300437436908138 -0.229300998835151 -0.196511527366195 -0.155327982802087 
                  1                  1                  1                  1                  1 
-  0.59961888223845  0.622263983049529  0.678679290101463  0.799231706295239  0.887159631702016 
+  -0.1482243464418                  0  0.202474331614365  0.238766627110995  0.291134375982578 
+                 1                  4                  1                  1                  1 
+ 0.362588154245001  0.425835435895797  0.429994711065054  0.443766960218511  0.443986644881722 
                  1                  1                  1                  1                  1 
- 0.956036654445334   1.02986611740474   1.07495095536266   1.41151229427208   1.56817852144288 
+ 0.445483906893863  0.472955796368883  0.477272293388824   0.59961888223845  0.622263983049529 
                  1                  1                  1                  1                  1 
-  1.57173730554216   1.67251794535732   1.70787386782195   1.81807964511085    1.8821285619283 
+ 0.678679290101463  0.799231706295239   0.82466405248162   0.84859748051408  0.867389201871826 
                  1                  1                  1                  1                  1 
-  1.99939351729975   2.00314030765153   2.02140261084361   2.02710529364068   2.12189209117771 
+ 0.886827507615632  0.887159631702016  0.956036654445334   1.02986611740474   1.07495095536266 
                  1                  1                  1                  1                  1 
-  2.12471018631133   2.14816310572829   2.21719657664849   2.23471572063701   2.35246203530604 
+  1.41151229427208   1.56817852144288   1.57173730554216   1.67251794535732   1.70787386782195 
                  1                  1                  1                  1                  1 
-  2.72494413864516   2.77633352347011    3.1048990131596   3.90076454985177   4.00727989180344 
+  1.81807964511085    1.8821285619283   1.99939351729975   2.00314030765153   2.02140261084361 
                  1                  1                  1                  1                  1 
-  4.08143424350846   4.91715341518655   5.67052262204966    5.8206027312785    5.9232816559916 
+  2.02710529364068   2.12189209117771   2.12471018631133   2.14816310572829   2.21719657664849 
                  1                  1                  1                  1                  1 
-  6.82417756177129    9.1267833966794   17.8264284028002   21.3458562356583               <NA> 
-                 1                  1                  1                  1                  7 
+  2.23471572063701   2.35246203530604   2.72494413864516   2.77633352347011   2.81915143541794 
+                 1                  1                  1                  1                  1 
+  3.06524147534451   3.10239682314565    3.1048990131596   3.85744800883356   3.90076454985177 
+                 1                  1                  1                  1                  1 
+  4.00727989180344   4.08143424350846    4.6242774566474   4.77820443764877   4.91715341518655 
+                 1                  1                  1                  1                  1 
+  5.38550418110961   5.67052262204966    5.8206027312785    5.9232816559916   6.82417756177129 
+                 1                  1                  1                  1                  1 
+  7.54713421163108    9.1267833966794   17.8264284028002   21.3458562356583               <NA> 
+                 1                  1                  1                  1                  8 
 >
 ```
 
+
 #### Missing-at-Random Analysis of p(increase)
 
-* These results tell us that 46 of the 82 cities experienced an increase in the murder rate while 29 cities experienced a decrease (N = 27) or no change (N = 2) from 2013 to 2015; for 7 cities, we are not able to tell whether there was an increase or a decrease because some of the data to perform the calculation were missing.
+* These results tell us that 35 of the 105 cities experienced either a decrease (N = 31) or no change in the murder rate (N = 4) while 62 cities experienced an increase from 2013 to 2015; for 8 cities, we are not able to tell whether there was an increase or a decrease because some of the data were missing.
 * Analysis objective #1: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
 * estimate θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
 * if p(missing) > 0, we can obtain the missing-at-random estimate of θ by assuming that θ|missing = θ|observed.
 * In addition to θ, we will calculate a 95% confidence interval for θ.
-* Will use the Jeffreys procedure to calculate the confidence interval (i.e., draw simulated θ's from a beta distribution with shape parameters 1/2+number of increases and 1/2+number of cases minus the number of increases).
+* Will use the Jeffreys procedure to calculate the confidence interval (i.e., invert the beta distribution with shape parameters 1/2+number of increases and 1/2+number of cases minus the number of increases).
+
+```R
+t <- table(df$delta>0,exclude=NULL)
+t
+
+t[2]/(t[1]+t[2])
+qbeta(p=c(0.025,0.975),shape1=1/2+t[2],shape2=1/2+t[1])
+```
+
+```Rout
+> t <- table(df$delta>0,exclude=NULL)
+> t
+
+FALSE  TRUE  <NA> 
+   35    62     8 
+> 
+> t[2]/(t[1]+t[2])
+     TRUE 
+0.6391753 
+> qbeta(p=c(0.025,0.975),shape1=1/2+t[2],shape2=1/2+t[1])
+[1] 0.5406468 0.7295365
+>
+```
 
 #### Missing-at-Random Analysis of Change Scores
 
