@@ -233,6 +233,8 @@ FALSE  TRUE  <NA>
 >
 ```
 
+* We can reject Ho that θ = 0.5, because the confidence interval for θ does not include 0.5.
+
 #### Missing-at-Random Analysis of Change Scores
 
 * The first analysis provides a sense of the direction of change but doesn't tell us anything about the typical magnitude of change.
