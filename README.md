@@ -142,7 +142,7 @@
 105    winstonsalem  15  235811  13  238082  NA      NA   15  235811   13  238082   10  241631
 ```
 
-* Next, we calculate the murder rates for each of the 82 cities for the years 2013 (the year before the events in Ferguson) and 2015 (the year after the events in Ferguson) based on the UCR published reports. For this analysis, we will rely on the murder rate based on the 2013 population size for each year:
+* Next, we calculate the murder rates for each of the 105 cities for the years 2013 (the year before the events in Ferguson) and 2015 (the year after the events in Ferguson) based on the UCR published reports. For this analysis, we will rely on the murder rate based on the 2013 population size for each year:
   
 ```R
 df$r13 <- (df$h13/df$p13)*100000
