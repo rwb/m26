@@ -230,12 +230,12 @@ table(df$delta,exclude=NULL)
 
 #### Missing-at-Random Analysis of p(increase)
 
-* These results tell us that 35 of the 105 cities experienced either a decrease (N = 31) or no change in the murder rate (N = 4) while 62 cities experienced an increase from 2013 to 2015; for 8 cities, we are not able to tell whether there was an increase or a decrease because some of the data were missing.
+* These results tell us that 61 of the 105 cities experienced an increase from 2013 to 2015; for 8 cities, we are not able to tell whether there was an increase or a decrease because some of the data were missing.
 * Analysis objective #1: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
 * estimate θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
 * if p(missing) > 0, we can obtain the missing-at-random estimate of θ by assuming that θ|missing = θ|observed.
 * In addition to θ, we will calculate a 95% confidence interval for θ.
-* Will use the Jeffreys procedure to calculate the confidence interval (i.e., invert the beta distribution with shape parameters 1/2+number of increases and 1/2+number of cases minus the number of increases).
+* Will use the Clopper-Pearson (exact) procedure to calculate the confidence interval.
 
 ```R
 t <- table(df$delta>0,exclude=NULL)
