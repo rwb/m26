@@ -146,7 +146,7 @@
   
 ```R
 df$r13 <- (df$h13/df$p13)*100000
-df$r15 <- (df$h15/df$p13)*100000
+df$r15 <- (df$h15/df$p15)*100000
 df$delta <- df$r15-df$r13
 table(df$delta,exclude=NULL)
 ```
@@ -155,51 +155,78 @@ table(df$delta,exclude=NULL)
 
 ```Rout
 > df$r13 <- (df$h13/df$p13)*100000
-> df$r15 <- (df$h15/df$p13)*100000
+> df$r15 <- (df$h15/df$p15)*100000
 > df$delta <- df$r15-df$r13
 > table(df$delta,exclude=NULL)
 
-   -4.274275510301  -3.04480043236166  -3.00047578973237  -2.64015946563172  -2.56210981202654 
-                 1                  1                  1                  1                  1 
- -2.35460324935248  -2.31849112597521  -1.49496384056211  -1.49121858654846  -1.41325277792499 
-                 1                  1                  1                  1                  1 
- -1.34911346381509  -1.31534237265842  -1.26743354845905  -1.23797002626972 -0.971779522661898 
-                 1                  1                  1                  1                  1 
--0.933140484299911 -0.806335377057541  -0.55776225782162 -0.552701466593342 -0.466587657823275 
-                 1                  1                  1                  1                  1 
--0.404720661799226 -0.402061772770768 -0.399430412232157  -0.35798283830273 -0.349170138969715 
-                 1                  1                  1                  1                  1 
- -0.31794177214385 -0.300437436908138 -0.229300998835151 -0.196511527366195 -0.155327982802087 
-                 1                  1                  1                  1                  1 
-  -0.1482243464418                  0  0.202474331614365  0.238766627110995  0.291134375982578 
-                 1                  4                  1                  1                  1 
- 0.362588154245001  0.425835435895797  0.429994711065054  0.443766960218511  0.443986644881722 
-                 1                  1                  1                  1                  1 
- 0.445483906893863  0.472955796368883  0.477272293388824   0.59961888223845  0.622263983049529 
-                 1                  1                  1                  1                  1 
- 0.678679290101463  0.799231706295239   0.82466405248162   0.84859748051408  0.867389201871826 
-                 1                  1                  1                  1                  1 
- 0.886827507615632  0.887159631702016  0.956036654445334   1.02986611740474   1.07495095536266 
-                 1                  1                  1                  1                  1 
-  1.41151229427208   1.56817852144288   1.57173730554216   1.67251794535732   1.70787386782195 
-                 1                  1                  1                  1                  1 
-  1.81807964511085    1.8821285619283   1.99939351729975   2.00314030765153   2.02140261084361 
-                 1                  1                  1                  1                  1 
-  2.02710529364068   2.12189209117771   2.12471018631133   2.14816310572829   2.21719657664849 
-                 1                  1                  1                  1                  1 
-  2.23471572063701   2.35246203530604   2.72494413864516   2.77633352347011   2.81915143541794 
-                 1                  1                  1                  1                  1 
-  3.06524147534451   3.10239682314565    3.1048990131596   3.85744800883356   3.90076454985177 
-                 1                  1                  1                  1                  1 
-  4.00727989180344   4.08143424350846    4.6242774566474   4.77820443764877   4.91715341518655 
-                 1                  1                  1                  1                  1 
-  5.38550418110961   5.67052262204966    5.8206027312785    5.9232816559916   6.82417756177129 
-                 1                  1                  1                  1                  1 
-  7.54713421163108    9.1267833966794   17.8264284028002   21.3458562356583               <NA> 
-                 1                  1                  1                  1                  8 
->
+   -4.2264944303562   -3.09145577990332   -2.68811715695588 
+                  1                   1                   1 
+  -2.61169179198061   -2.53940280770674   -2.27595185869848 
+                  1                   1                   1 
+  -2.02032578975854   -1.56677857332485   -1.51125478314244 
+                  1                   1                   1 
+  -1.50715229423988   -1.49730314435406   -1.42613963520725 
+                  1                   1                   1 
+  -1.33108538180323   -1.30760461031011   -1.05477823219939 
+                  1                   1                   1 
+ -0.948633090260879  -0.942764225746169  -0.921588768430544 
+                  1                   1                   1 
+ -0.748286832337622  -0.674799228783991  -0.670959677551942 
+                  1                   1                   1 
+ -0.598233398869121  -0.576017206824496  -0.573037945591837 
+                  1                   1                   1 
+ -0.481312313727147  -0.435865005102178    -0.4178367275792 
+                  1                   1                   1 
+ -0.372513809796698  -0.348065068440382  -0.345721726210054 
+                  1                   1                   1 
+ -0.248398900418235  -0.147174281238943 -0.0945589196443386 
+                  1                   1                   1 
+-0.0734691854445692 -0.0649646152220726 -0.0338099823705811 
+                  1                   1                   1 
+ 0.0877996685620186   0.126609162789111   0.154849062796409 
+                  1                   1                   1 
+  0.188454036054615   0.237348126208547   0.305973833443694 
+                  1                   1                   1 
+  0.318773563805586    0.32582293937407   0.364669207360681 
+                  1                   1                   1 
+  0.379466144881643   0.391806764279037   0.408294639824376 
+                  1                   1                   1 
+  0.415001320725991   0.424121713634324   0.545274015340295 
+                  1                   1                   1 
+  0.569791256379789   0.645114711905089   0.732965676737821 
+                  1                   1                   1 
+  0.751471567565807   0.772168210487582   0.791850902535721 
+                  1                   1                   1 
+  0.821310124610802    1.00661867351688    1.05353468472026 
+                  1                   1                   1 
+   1.27871370365836    1.32853306639213    1.36076339995745 
+                  1                   1                   1 
+   1.47822621917223    1.60299224469485    1.60321762490958 
+                  1                   1                   1 
+   1.66487440956126    1.66519864285879    1.67031798167725 
+                  1                   1                   1 
+   1.75942460365421    1.90874419906274    1.95617311257009 
+                  1                   1                   1 
+   1.96353191440305    1.96519079457117    2.08969409697631 
+                  1                   1                   1 
+   2.28077936414219    2.30004248322125    2.39701502161764 
+                  1                   1                   1 
+    2.8706561749003    2.93027681479006    3.04507882754164 
+                  1                   1                   1 
+   3.50360192048708    3.72629847992384    3.94677366539968 
+                  1                   1                   1 
+    3.9558606780171     4.3686891360957    4.74991482727428 
+                  1                   1                   1 
+   4.94741688718449    5.00564206289317    5.20776343639668 
+                  1                   1                   1 
+   5.39744506667302    5.43579144757499    6.84045735196462 
+                  1                   1                   1 
+   7.49622977951065    8.16576828892071    17.9526153397927 
+                  1                   1                   1 
+    21.619067863058                <NA> 
+                  1                   8 
+> 
 ```
-
 
 #### Missing-at-Random Analysis of p(increase)
 
@@ -215,22 +242,26 @@ t <- table(df$delta>0,exclude=NULL)
 t
 
 t[2]/(t[1]+t[2])
-qbeta(p=c(0.025,0.975),shape1=1/2+t[2],shape2=1/2+t[1])
+qbeta(p=0.025,shape1=t[2],shape2=1+t[1])
+qbeta(p=0.975,shape1=1+t[2],shape2=t[1])
 ```
+
+which gives the output:
 
 ```Rout
 > t <- table(df$delta>0,exclude=NULL)
 > t
 
 FALSE  TRUE  <NA> 
-   35    62     8 
+   36    61     8 
 > 
 > t[2]/(t[1]+t[2])
-     TRUE 
-0.6391753 
-> qbeta(p=c(0.025,0.975),shape1=1/2+t[2],shape2=1/2+t[1])
-[1] 0.5406468 0.7295365
->
+    TRUE 
+0.628866 
+> qbeta(p=0.025,shape1=t[2],shape2=1+t[1])
+[1] 0.5248197
+> qbeta(p=0.975,shape1=1+t[2],shape2=t[1])
+[1] 0.7248168
 ```
 
 * We can reject Ho that θ = 0.5, because the confidence interval for θ does not include 0.5.
@@ -241,70 +272,10 @@ FALSE  TRUE  <NA>
 * Let each city be characterized by its change score, Δ = 2015 murder rate minus the 2013 murder rate.
 * Then, we consider measures of central tendency or typicality in the observed change scores (i.e., the mean and median of the change scores).
 * What can the data tell us about these quantities?
-* mean(Δ) = p(observed)*mean(Δ|observed)+p(missing)*mean(Δ|missing)
-* if p(missing) > 0, we can obtain the missing-at-random estimate of mean(Δ) by assuming that mean(Δ|missing) = mean(Δ|observed)
+* E(Δ) = p(observed)*E(Δ|observed)+p(missing)*E(Δ|missing)
+* if p(missing) > 0, we can obtain the missing-at-random estimate of E(Δ) by assuming that E(Δ|missing) = E(Δ|observed)
 * for the missing-at-random estimate of the median(Δ), we also assume that median(Δ|missing) = median(Δ|observed)
 * we can use standard tools to calculate the confidence interval for each estimate
-
-#### Missing-At-Random Results: p(increase)
-
-* Recall that θ = p(observed)*p(increase|observed)+p(missing)*p(increase|missing)
-* p(observed) = 75/82
-* p(increase|observed) = 46/75
-* p(missing) = 7/82
-* p(increase|missing) = ?/7
-* missing-at-random (mar) estimate = p(observed)*p(increase|observed)+p(missing)*p(increase|observed)
-* in this case, the mar estimate of θ is 46/75 = 0.613
-* 95% confidence interval around mar.est = [0.501,0.718]
-* reject Ho that θ = 0.5 (but just barely; this is a borderline case!)
-
-#### Missing-At-Random Results: mean(Δ) and median(Δ)
-
-* missing-at-random estimate of mean(Δ) = +1.479 (95% CI: [0.608,2.351])
-* missing-at-random estimate of median(Δ) = +0.622 (95% exact CI: [0.000,1.572]) (borderline case!)
-
-```R
-set.seed(387)
-mean(d$delta,na.rm=T)
-t.test(d$delta,conf.level=0.95,na.rm=T)
-median(d$delta,na.rm=T)
-library(DescTools)
-MedianCI(d$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
-MedianCI(d$delta,conf.level=0.95,method="exact",na.rm=T)
-```
-
-which gives the following output:
-
-```Rout
-> set.seed(387)
-> mean(d$delta,na.rm=T)
-[1] 1.479206
-> t.test(d$delta,conf.level=0.95,na.rm=T)
-
-	One Sample t-test
-
-data:  d$delta
-t = 3.3828, df = 74, p-value = 0.00115
-alternative hypothesis: true mean is not equal to 0
-95 percent confidence interval:
- 0.6079128 2.3505002
-sample estimates:
-mean of x 
- 1.479206 
-
-> median(d$delta,na.rm=T)
-[1] 0.622264
-> library(DescTools)
-> MedianCI(d$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
-  median   lwr.ci   upr.ci 
-0.622264 0.000000 1.411512 
-> MedianCI(d$delta,conf.level=0.95,method="exact",na.rm=T)
-  median   lwr.ci   upr.ci 
-0.622264 0.000000 1.571737 
-attr(,"conf.level")
-[1] 0.9630451
->
-```
 
 ---
 #### Bounds Analysis for θ
