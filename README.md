@@ -3,7 +3,7 @@
 #### Exploring Changes in City-Level Murder Rates During the Ferguson Era: A Partial Identification Analysis
 
 * Historical events: police killings of Michael Brown in August 2014 (Ferguson, MO) and Freddie Gray in April 2015 (Baltimore, MD)
-* FBI Director James Comey and the "Ferguson effect": "Far more people are being killed in America’s cities this year than in many years."
+* FBI Director James Comey and the "Ferguson effect": "Far more people are being killed in America’s cities this year than in many years." (October 23, 2015; [CNN Story](https://www.cnn.com/2015/10/26/politics/fbi-comey-crime-police)).
 * Emphasis of this study: changes in murder rates at the city level, comparing 2013 to 2015
   
 ---
