@@ -303,8 +303,25 @@ mean of x
 >
 ```
 
-* Since the 95% confidence interval for E(
+* Since the 95% confidence interval for E(Δ|observed) does not include zero, we reject Ho that E(Δ|observed) = 0.
+* Next, we consider median(Δ|observed):
 
+```R
+median(df$delta,na.rm=T)
+library(DescTools)
+MedianCI(df$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
+```
+
+```Rout
+> median(df$delta,na.rm=T)
+[1] 0.4150013
+> library(DescTools)
+> MedianCI(df$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
+   median    lwr.ci    upr.ci 
+0.4150013 0.1266092 0.8213101 
+>
+```
+* Since the 95% confidence interval for median(Δ|observed) does not include zero, we reject Ho that median(Δ|observed) = 0.
 
 ---
 #### Bounds Analysis for θ
