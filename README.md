@@ -23,8 +23,8 @@
 * Let *p* be the probability that a city drawn at random experienced an increase in its murder rate from 2013 to 2015.
 * Let $\Delta_i$ be the 2015 murder rate minus the 2013 murder rate for city *i*.
 * Hypothesis 1: *p* > 0.5.
-* Hypothesis 2: median(Δ) > 0
-
+* Hypothesis 2: E(Δ) > 0
+  
 ---
 #### Dataset/Methods
 
