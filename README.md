@@ -21,7 +21,9 @@
 * Ferguson effect was originally described by Director Comey as a national phenomenon.
 * A basic analysis could compare the murder rates in large American cities between 2013 (the year before Ferguson) and 2015 (the year after Ferguson).
 * Let *p* be the probability that a city drawn at random experienced an increase in its murder rate from 2013 to 2015.
-* Hypothesis: If the Ferguson effect envisioned by Director Comey exists, then *p* should be greater than 0.5.
+* Let $\delta_i$ be the 2015 murder rate minus the 2013 murder rate for city *i*.
+* Hypothesis 1: *p* > 0.5.
+* Hypothesis 2: median(Δ) > 0
 
 ---
 #### Dataset/Methods
