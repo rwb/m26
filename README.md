@@ -274,11 +274,17 @@ FALSE  TRUE  <NA>
 * Let each city be characterized by its change score, Δ = 2015 murder rate minus the 2013 murder rate.
 * Then, we consider measures of central tendency or typicality in the observed change scores (i.e., the mean and median of the change scores).
 * What can the data tell us about these quantities?
+* Let's begin with a histogram and boxplot:
+
+<p align="center">
+<img src="fig1.png" width="750px">
+</p>
+
 * E(Δ) = p(observed)*E(Δ|observed)+p(missing)*E(Δ|missing)
 * if p(missing) > 0, we can obtain the missing-at-random estimate of E(Δ) by assuming that E(Δ|missing) = E(Δ|observed)
 * for the missing-at-random estimate of the median(Δ), we also assume that median(Δ|missing) = median(Δ|observed)
 * we can use standard tools to calculate the confidence interval for each estimate
-* first, we calculate E(Δ|observed):
+* next, we calculate E(Δ|observed):
 
 ```R
 mean(df$delta,na.rm=T)
@@ -303,8 +309,8 @@ mean of x
 >
 ```
 
-* Since the 95% confidence interval for E(Δ|observed) does not include zero, we reject Ho that E(Δ|observed) = 0.
-* Next, we consider median(Δ|observed):
+* since the 95% confidence interval for E(Δ|observed) does not include zero, we reject Ho that E(Δ|observed) = 0.
+* then, we consider median(Δ|observed):
 
 ```R
 median(df$delta,na.rm=T)
@@ -321,7 +327,7 @@ MedianCI(df$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
 0.4150013 0.1266092 0.8213101 
 >
 ```
-* Since the 95% confidence interval for median(Δ|observed) does not include zero, we reject Ho that median(Δ|observed) = 0.
+* again, since the 95% confidence interval for median(Δ|observed) does not include zero, we reject Ho that median(Δ|observed) = 0.
 
 ---
 #### Bounds Analysis for θ
