@@ -278,6 +278,33 @@ FALSE  TRUE  <NA>
 * if p(missing) > 0, we can obtain the missing-at-random estimate of E(Δ) by assuming that E(Δ|missing) = E(Δ|observed)
 * for the missing-at-random estimate of the median(Δ), we also assume that median(Δ|missing) = median(Δ|observed)
 * we can use standard tools to calculate the confidence interval for each estimate
+* first, we calculate E(Δ|observed):
+
+```R
+mean(df$delta,na.rm=T)
+t.test(df$delta,conf.level=0.95,na.rm=T)
+```
+
+```Rout
+> mean(df$delta,na.rm=T)
+[1] 1.287467
+> t.test(df$delta,conf.level=0.95,na.rm=T)
+
+	One Sample t-test
+
+data:  df$delta
+t = 3.5781, df = 96, p-value = 0.0005447
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 0.5732277 2.0017068
+sample estimates:
+mean of x 
+ 1.287467 
+>
+```
+
+* Since the 95% confidence interval for E(
+
 
 ---
 #### Bounds Analysis for θ
