@@ -347,8 +347,8 @@ ub-lb
 8/105
 
 # B-corrected confidence interval for lower bound
-qbeta(p=0.0125,shape1=61,shape2=1+44)
-qbeta(p=0.9875,shape1=1+61,shape2=44)
+qbeta(p=0.0125,shape1=61,shape2=1+36+8)
+qbeta(p=0.9875,shape1=1+61,shape2=36+8)
 
 # B-corrected confidence interval for upper bound
 qbeta(p=0.0125,shape1=61+8,shape2=1+36)
