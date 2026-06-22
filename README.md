@@ -381,6 +381,68 @@ qbeta(p=0.9875,shape1=1+61+8,shape2=36)
 >
 ```
 
+#### Bounds Analysis for median(Δ)
+
+* Previously, we studied the missing-at-random estimates of E(Δ|observed) and median(Δ|observed)
+* It is not possible to place meaningful bounds on E(Δ) because there are no limits on the set of values that E(Δ|missing) could take on.
+* It is possible to place meaningful bounds on median(Δ) by setting the missing values of Δ to a low value (to get the lower bound) and a high value (to get the upper bound).
+* We will use the minimum and maximum values in the set of observed Δs to derive the bounds, [-4.227,21.620].
+* Then, we calculate Bonferroni-corrected confidence intervals for each bound:
+
+```R
+min(df$delta,na.rm=T)
+max(df$delta,na.rm=T)
+
+# lower bound of the median
+
+delta.min <- df$delta
+delta.min[is.na(df$delta)] <- -4.227
+median(delta.min)
+MedianCI(delta.min,conf.level=0.975,method="boot",type="bca")
+
+# upper bound of the median
+
+delta.max <- df$delta
+delta.max[is.na(df$delta)] <- 21.620
+median(delta.max)
+MedianCI(delta.max,conf.level=0.975,method="boot",type="bca")
+```
+
+```Rout
+> min(df$delta,na.rm=T)
+[1] -4.226494
+> max(df$delta,na.rm=T)
+[1] 21.61907
+> 
+> # lower bound of the median
+> 
+> delta.min <- df$delta
+> delta.min[is.na(df$delta)] <- -4.227
+> median(delta.min)
+[1] 0.3646692
+> MedianCI(delta.min,conf.level=0.975,method="boot",type="bca")
+    median     lwr.ci     upr.ci 
+ 0.3646692 -0.1471743  0.7514716 
+> 
+> # upper bound of the median
+> 
+> delta.max <- df$delta
+> delta.max[is.na(df$delta)] <- 21.620
+> median(delta.max)
+[1] 0.6451147
+> MedianCI(delta.max,conf.level=0.975,method="boot",type="bca")
+   median    lwr.ci    upr.ci 
+0.6451147 0.2373481 1.3607634 
+>
+```
+
+* So, the bounds on the median change score are [+0.365,+0.645].
+* The B-corrected 95% confidence intervals on the lower and upper bounds respectively are [-0.147,+0.751] and [+0.237,+1.361].
+* So, the sign of the median change score is identified.
+* But the confidence limits on the lower bound estimate include zero.
+* And the evidence is, therefore, not strong enough to reject Ho that median(Δ) is equal to zero.
+* Remember that insufficient evidence to reject Ho is not evidence that Ho is correct!
+
 ---
 #### Conclusions
 
