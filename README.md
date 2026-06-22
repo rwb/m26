@@ -26,12 +26,15 @@
 * Hypothesis 2: E(Δ) > 0
   
 ---
-#### Dataset/Methods
+#### Data Overview
 
 * According to Pyrooz et al. (2016:7, Appendix A) there were 105 American cities with at least 200,000 population in the year 2010.
 * We can use these same 105 cities.
 * Number of murders is based on the FBI's Uniform Crime Reporting Program for the years 2013 and 2015.
 * Population size is also based on each city's jurisdiction as reported in the UCR records for the years 2013, 2014, and 2015.
+
+#### UCR Published Volume Analysis
+
 * The first version of the variables (h13-h15 and p13-p15) were obtained from the [published UCR reports](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/publications); the second version of the variables (h13a-h15a and p13a-p15a) were obtained from Jacob Kaplan's [website](https://crimedatatool.com), which, itself, is based on data from the [Crime Data Explorer](https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/home).
 * Data set:
 
@@ -230,7 +233,7 @@ table(df$delta,exclude=NULL)
 > 
 ```
 
-#### Missing-at-Random Analysis of p(increase)
+##### Missing-at-Random Analysis of p(increase)
 
 * These results tell us that 61 of the 105 cities experienced an increase from 2013 to 2015; for 8 cities, we are not able to tell whether there was an increase or a decrease because some of the data were missing.
 * Analysis objective #1: develop a valid estimate of θ (the probability that a city experienced an increase in its murder rate from 2013 to 2015).
@@ -268,7 +271,7 @@ FALSE  TRUE  <NA>
 
 * We can reject Ho that θ = 0.5, because the confidence interval for θ does not include 0.5.
 
-#### Missing-at-Random Analysis of Change Scores
+##### Missing-at-Random Analysis of Change Scores
 
 * The first analysis provides a sense of the direction of change but doesn't tell us anything about the typical magnitude of change.
 * Let each city be characterized by its change score, Δ = 2015 murder rate minus the 2013 murder rate.
@@ -330,7 +333,7 @@ MedianCI(df$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
 * again, since the 95% confidence interval for median(Δ|observed) does not include zero, we reject Ho that median(Δ|observed) = 0.
 
 ---
-#### Bounds Analysis for θ
+##### Bounds Analysis for θ
 
 * minimum value of θ consistent with the data: 97/105 x 61/97 + 8/105 x 0/8 = 0.581
 * maximum value of θ consistent with the data: 97/105 x 61/97 + 8/105 x 8/8 = 0.657
@@ -381,7 +384,7 @@ qbeta(p=0.9875,shape1=1+61+8,shape2=36)
 >
 ```
 
-#### Bounds Analysis for median(Δ)
+##### Bounds Analysis for median(Δ)
 
 * Previously, we studied the missing-at-random estimates of E(Δ|observed) and median(Δ|observed)
 * It is not possible to place meaningful bounds on E(Δ) because there are no limits on the set of values that E(Δ|missing) could take on.
@@ -442,6 +445,13 @@ MedianCI(delta.max,conf.level=0.975,method="boot",type="bca")
 * But the confidence limits on the lower bound estimate include zero.
 * And the evidence is, therefore, not strong enough to reject Ho that median(Δ) is equal to zero.
 * Remember that insufficient evidence to reject Ho is not evidence that Ho is correct!
+
+---
+#### Crime Data Explorer Analysis
+
+* The second version of the analysis relies on data from the Crime Data Explorer.
+* These data reflect additional information that police departments provide after the FBI publishes the UCR report.
+* Although some of the numbers can be updated, the most important difference is that we now have only 4 missing police departments instead of the 8 that were previously missing.
 
 ---
 #### Conclusions
