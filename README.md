@@ -332,11 +332,54 @@ MedianCI(df$delta,conf.level=0.95,method="boot",type="bca",na.rm=T)
 ---
 #### Bounds Analysis for θ
 
-* minimum value of θ consistent with the data: 75/82 x 46/75 + 7/82 x 0/7 = 0.561
-* maximum value of θ consistent with the data: 75/82 x 46/75 + 7/82 x 7/7 = 0.646
-* notice that 0.646-0.561 = 0.085 which is the same as 7/82 (fraction of cases that are missing)
-* Bonferroni-corrected 95% confidence interval for the lower and upper bounds: LB: [0.438,0.679] and UB: [0.524,0.756]
+* minimum value of θ consistent with the data: 97/105 x 61/97 + 8/105 x 0/8 = 0.581
+* maximum value of θ consistent with the data: 97/105 x 61/97 + 8/105 x 8/8 = 0.657
+* notice that 0.657-0.581 = 0.076 which is the same as 8/105 (fraction of cases that are missing)
+* Bonferroni-corrected 95% confidence interval for the lower and upper bounds: LB: [0.467,0.689] and UB: [0.544,0.758]
 * the dominant sign of change is identified (more than 1/2 of the cities experienced an increase even if none of the missing cities experiencecd an increase but the Bonferroni-corrected 95% confidence interval for the lower bound estimate of θ now includes 1/2.
+
+```R
+lb <- 97/105*61/97+8/105*0/8
+lb
+ub <- 97/105*61/97+8/105*8/8
+ub
+ub-lb
+8/105
+
+# B-corrected confidence interval for lower bound
+qbeta(p=0.0125,shape1=61,shape2=1+44)
+qbeta(p=0.9875,shape1=1+61,shape2=44)
+
+# B-corrected confidence interval for upper bound
+qbeta(p=0.0125,shape1=61+8,shape2=1+36)
+qbeta(p=0.9875,shape1=1+61+8,shape2=36)
+```
+
+```Rout
+> lb <- 97/105*61/97+8/105*0/8
+> lb
+[1] 0.5809524
+> ub <- 97/105*61/97+8/105*8/8
+> ub
+[1] 0.6571429
+> ub-lb
+[1] 0.07619048
+> 8/105
+[1] 0.07619048
+> 
+> # B-corrected confidence interval for lower bound
+> qbeta(p=0.0125,shape1=61,shape2=1+44)
+[1] 0.4669867
+> qbeta(p=0.9875,shape1=1+61,shape2=44)
+[1] 0.6890145
+> 
+> # B-corrected confidence interval for upper bound
+> qbeta(p=0.0125,shape1=61+8,shape2=1+36)
+[1] 0.5443668
+> qbeta(p=0.9875,shape1=1+61+8,shape2=36)
+[1] 0.7584362
+>
+```
 
 ---
 #### Conclusions
