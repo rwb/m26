@@ -38,7 +38,7 @@
 * The first version of the variables (h13-h15 and p13-p15) were obtained from the [published UCR reports](https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/publications); the second version of the variables will be presented below.
 * R output:
 
-```R
+```Rout
 > df <- read.csv(file="rr.csv",sep=",",header=T)
 > head(df)
          city h13    p13 h14    p14 h15    p15 h13a   p13a
